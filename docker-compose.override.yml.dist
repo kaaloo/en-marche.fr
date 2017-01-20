@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+    app:
+        volumes:
+            - "~/.composer:/root/.composer"
+        ports:
+            - "80:80"
+
+    db:
+        ports:
+            - "3306:3306"
+
+    mailcatcher:
+        ports:
+            - "1025:1025"
+            - "1080:1080"
+
+    pma:
+        ports:
+            - "8080:80"
