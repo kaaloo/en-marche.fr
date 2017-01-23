@@ -33,6 +33,10 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
         ];
 
+        if ('test' !== $this->getEnvironment()) {
+            $bundles[] = new Bazinga\Bundle\GeocoderBundle\BazingaGeocoderBundle();
+        }
+
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
@@ -63,5 +67,9 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+
+        if ('test' !== $this->getEnvironment()) {
+            $loader->load($this->getRootDir().'/config/geocoder.yml');
+        }
     }
 }

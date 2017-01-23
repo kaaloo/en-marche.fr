@@ -1,0 +1,9 @@
+imports:
+    - { resource: 'services/geocoder.xml' }
+
+bazinga_geocoder:
+    providers:
+        google_maps:
+            locale:  '%locale%'
+            use_ssl: true
+            api_key: '%env(GMAPS_API_KEY)%'

@@ -75,7 +75,7 @@ doctrine:
         types:
             uuid:           Ramsey\Uuid\Doctrine\UuidType
             phone_number:   Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
-
+            geo_point:      AppBundle\Doctrine\DBAL\Types\GeoPointType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -155,4 +155,3 @@ sonata_admin:
         layout:  admin/layout.html.twig
     security:
         handler: sonata.admin.security.handler.role
-

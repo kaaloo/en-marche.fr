@@ -5,6 +5,7 @@ namespace Tests\AppBundle\Entity;
 use AppBundle\Entity\Adherent;
 use AppBundle\Entity\AdherentActivationToken;
 use AppBundle\Exception\AdherentAlreadyEnabledException;
+use AppBundle\Geocoder\Coordinates;
 use AppBundle\Membership\ActivityPositions;
 use libphonenumber\PhoneNumber;
 use Ramsey\Uuid\UuidInterface;
@@ -38,6 +39,18 @@ class AdherentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('92110-92024', $adherent->getCity());
         $this->assertEquals(new \DateTime('1990-12-12'), $adherent->getBirthdate());
         $this->assertSame(ActivityPositions::STUDENT, $adherent->getPosition());
+        $this->assertNull($adherent->getLatitude());
+        $this->assertNull($adherent->getLongitude());
+    }
+
+    public function testGeoAddressAndCoordinates()
+    {
+        $adherent = $this->createAdherent();
+        $adherent->updateCoordinates(new Coordinates(12.456323, 89.735324));
+
+        $this->assertSame('92 bld du Général Leclerc, 92110 Clichy, France', $adherent->getGeocodableAddress());
+        $this->assertSame(12.456323, $adherent->getLatitude());
+        $this->assertSame(89.735324, $adherent->getLongitude());
     }
 
     public function testActivateAdherentAccount()
